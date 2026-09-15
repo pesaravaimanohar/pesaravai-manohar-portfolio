@@ -1,6 +1,6 @@
-# Pesaravai Manohar · Portfolio
+# Manohar Pesaravai · Portfolio
 
-A responsive, animated React portfolio for Pesaravai Manohar, a web developer based in Bengaluru. Built with React, Vite, CSS, and accessible browser APIs.
+A responsive, animated React portfolio for Manohar Pesaravai, a web developer based in Bengaluru. Built with React, Vite, CSS, and accessible browser APIs.
 
 ## Run locally
 

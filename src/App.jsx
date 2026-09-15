@@ -33,9 +33,9 @@ function Header({ active, menuOpen, setMenuOpen }) {
   return (
     <>
       <header className="header">
-        <a className="brand" href="#about" aria-label="Pesaravai Manohar, home" onClick={closeMenu}>
-          <span className="brand-symbol">PM<span>.</span></span>
-          <span className="brand-name">Pesaravai Manohar</span>
+        <a className="brand" href="#about" aria-label="Manohar Pesaravai, home" onClick={closeMenu}>
+          <span className="brand-symbol">MP<span>.</span></span>
+          <span className="brand-name">Manohar Pesaravai</span>
         </a>
         <nav className="nav" aria-label="Main navigation">
           {links.map(link => <a key={link.href} className={active === link.href.slice(1) ? 'active' : ''} href={link.href}>{link.label}</a>)}
@@ -58,13 +58,21 @@ function About() {
     <section className="about section" id="about" aria-labelledby="about-title">
       <div className="about-glow" aria-hidden="true" />
       <div className="about-grid" aria-hidden="true" />
-      <div className="about-content">
-        <p className="eyebrow"><span className="eyebrow-line" /> Web developer · Bengaluru</p>
-        <h1 id="about-title">Pesaravai<br /><em>Manohar<span>.</span></em></h1>
-        <div className="about-bottom">
-          <p>I build clean, responsive websites with a strong eye for detail. Open to web development roles and freelance projects.</p>
-          <a className="primary-link" href="#projects">Explore projects <span aria-hidden="true">↗</span></a>
+      <div className="about-main">
+        <div className="about-content">
+          <p className="eyebrow"><span className="eyebrow-line" /> Web developer · Bengaluru</p>
+          <h1 id="about-title">Manohar<br /><em>Pesaravai<span>.</span></em></h1>
+          <div className="about-bottom">
+            <p>I build clean, responsive websites with a strong eye for detail. Open to web development roles and freelance projects.</p>
+            <a className="primary-link" href="#projects">Explore projects <span aria-hidden="true">↗</span></a>
+          </div>
         </div>
+        <figure className="portrait">
+          <div className="portrait-frame">
+            <img src="/manohar-pesaravai.png" alt="Manohar Pesaravai wearing a dark suit" width="1122" height="1402" fetchPriority="high" />
+          </div>
+          <figcaption><span>Manohar Pesaravai</span><span>Web developer · Bengaluru</span></figcaption>
+        </figure>
       </div>
       <div className="about-aside" aria-hidden="true"><span>Design</span><span>Development</span><span>Direction</span></div>
       <div className="about-detail" aria-hidden="true"><span>Available for new opportunities</span><span className="detail-line" /><span>{new Date().getFullYear()}</span></div>
@@ -106,9 +114,9 @@ function Projects() {
         <p>I’m at the beginning of my professional journey. This portfolio is my first showcased build, with more projects to follow.</p>
       </div>
       <article className="project reveal">
-        <a className="project-preview" href="#about" aria-label="View the Pesaravai Manohar portfolio website">
-          <div className="preview-top"><span>PM.</span><span>Web Developer</span></div>
-          <div className="preview-center"><span>Pesaravai</span><strong>Manohar.</strong></div>
+        <a className="project-preview" href="#about" aria-label="View the Manohar Pesaravai portfolio website">
+          <div className="preview-top"><span>MP.</span><span>Web Developer</span></div>
+          <div className="preview-center"><span>Manohar</span><strong>Pesaravai.</strong></div>
           <div className="preview-bottom"><span>01 / About</span><span>02 / Skills</span><span>03 / Projects</span></div>
           <span className="preview-corner" aria-hidden="true">↗</span>
         </a>
@@ -131,7 +139,7 @@ function Contact() {
         <div>
           <h2 id="contact-title">Let’s make<br /><span>something good.</span></h2>
           <p>Hiring for a web development role or planning a website? I’d be glad to hear about it.</p>
-          <a className="email-button" href="mailto:pesaravaimanohar.dev@gmail.com?subject=Hello%20Pesaravai%20Manohar">Email me <span aria-hidden="true">↗</span></a>
+          <a className="email-button" href="mailto:pesaravaimanohar.dev@gmail.com?subject=Hello%20Manohar%20Pesaravai">Email me <span aria-hidden="true">↗</span></a>
         </div>
         <div className="contact-details">
           <div><span>Email</span><a href="mailto:pesaravaimanohar.dev@gmail.com">pesaravaimanohar.dev@gmail.com</a></div>
@@ -180,7 +188,7 @@ export default function App() {
       <a className="skip-link" href="#about">Skip to content</a>
       <Header active={active} menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
       <main><About /><Skills /><Projects /><Contact /></main>
-      <footer className="footer"><a href="#about">PM<span>.</span></a><p>© {new Date().getFullYear()} Pesaravai Manohar</p><a href="#about">Back to top ↑</a></footer>
+      <footer className="footer"><a href="#about">MP<span>.</span></a><p>© {new Date().getFullYear()} Manohar Pesaravai</p><a href="#about">Back to top ↑</a></footer>
     </>
   );
 }
