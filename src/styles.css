@@ -122,6 +122,23 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--blue); outline-
 .project-info > a span { color: var(--blue); margin-left: 16px; }
 .more-projects { margin: 30px 0 0; color: var(--mist); font-size: 15px; }
 
+.games { background: #0a2342; }
+.games-layout { display: grid; grid-template-columns: 1fr minmax(320px, .84fr); gap: clamp(40px, 8vw, 120px); align-items: center; }
+.games-tag { display: block; color: var(--blue); font-size: 12px; letter-spacing: .16em; font-weight: 700; margin-bottom: 23px; }
+.games-copy h2 { font-size: clamp(45px, 5.6vw, 82px); font-weight: 500; letter-spacing: -.065em; line-height: 1.04; }
+.games-copy h2 span { color: var(--blue); }
+.games-copy p { max-width: 550px; color: var(--mist); font-size: 17px; line-height: 1.7; }
+.games-link { display: inline-flex; justify-content: space-between; gap: 55px; min-width: 240px; margin-top: 24px; border-bottom: 1px solid var(--blue); padding-bottom: 14px; font-size: 15px; font-weight: 700; }
+.games-link span { color: var(--blue); }
+.games-preview { display: block; border: 1px solid #99c1ba; border-radius: 19px; padding: clamp(20px, 3vw, 37px); background: #f4f1e9; color: #244b49; box-shadow: 18px 18px 0 rgba(130, 189, 255, .1); transition: transform .25s; }
+.games-preview:hover { transform: translateY(-5px); }
+.games-preview-top, .games-preview-bottom { display: flex; justify-content: space-between; font-size: 12px; font-weight: 700; letter-spacing: .13em; }
+.games-preview-top span { font-size: 20px; line-height: 12px; }
+.games-preview-bottom { color: #6f8d80; font-size: 10px; }
+.games-mini-grid { display: grid; grid-template-columns: repeat(6, 1fr); margin: 25px 0; aspect-ratio: 1.4; border: 2px solid #244b49; border-radius: 7px; overflow: hidden; gap: 1px; background: #244b49; }
+.games-mini-grid span { display: grid; place-items: center; background: #fffdf8; font: 600 clamp(8px, .85vw, 13px) 'Space Grotesk', sans-serif; }
+.games-mini-grid span:nth-child(even) { background: #edf2e9; }
+
 .contact { background: #0b2b51; }
 .contact-layout { display: grid; grid-template-columns: 1.2fr .8fr; gap: 10vw; }
 .contact h2 { margin-bottom: 25px; }
@@ -149,6 +166,8 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--blue); outline-
 .reveal.visible { opacity: 1; transform: translateY(0); }
 
 @media (max-width: 1000px) {
+  .games-layout { grid-template-columns: 1fr; }
+  .games-preview { width: min(100%, 620px); }
   .header { grid-template-columns: 1fr auto; }
   .nav, .header-contact { display: none; }
   .menu-toggle { display: flex; flex-direction: column; justify-content: center; gap: 6px; width: 44px; height: 44px; padding: 11px; background: none; border: 1px solid var(--stroke); cursor: pointer; }
@@ -174,6 +193,8 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--blue); outline-
 }
 
 @media (max-width: 660px) {
+  .games-copy h2 { font-size: 46px; }
+  .games-mini-grid span { font-size: clamp(8px, 2.1vw, 13px); }
   :root { --header: 68px; }
   .brand-name { display: none; }
   .section { padding: 78px 22px; }

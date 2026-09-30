@@ -1,9 +1,12 @@
 import { useEffect, useState } from 'react';
+import SudokuGame from './SudokuGame.jsx';
+import { makePuzzle, NAMES } from './sudoku.js';
 
 const links = [
   { label: 'About', href: '#about' },
   { label: 'Skills', href: '#skills' },
   { label: 'Projects', href: '#projects' },
+  { label: 'My Games', href: '#games' },
   { label: 'Contact', href: '#contact' },
 ];
 
@@ -134,7 +137,7 @@ function Projects() {
 function Contact() {
   return (
     <section className="contact section" id="contact" aria-labelledby="contact-title">
-      <SectionTop number="03" label="Contact" note="The next step starts here" />
+      <SectionTop number="04" label="Contact" note="The next step starts here" />
       <div className="contact-layout reveal">
         <div>
           <h2 id="contact-title">Let’s make<br /><span>something good.</span></h2>
@@ -152,7 +155,21 @@ function Contact() {
   );
 }
 
-export default function App() {
+function Games() {
+  const preview = makePuzzle('easy', 'portfolio-preview').puzzle;
+  return (
+    <section className="games section" id="games" aria-labelledby="games-title">
+      <SectionTop number="03" label="My Games" note="Little things, made to play" />
+      <div className="games-layout reveal">
+        <div className="games-copy"><span className="games-tag">01 / THE FRIENDS EDITION</span><h2 id="games-title">A puzzle with<br /><span>familiar names.</span></h2><p>Meet Names Sudoku: a 6×6 puzzle featuring Vams, Yams, Vji, Obu, Sree and Teju. Choose a level, solve it, and share the same board with a friend.</p><a className="games-link" href="/games/sudoku">Play Names Sudoku <span aria-hidden="true">↗</span></a></div>
+        <a className="games-preview" href="/games/sudoku" aria-label="Play Names Sudoku"><span className="games-preview-top">NAMES SUDOKU <span>↗</span></span><div className="games-mini-grid" aria-hidden="true">{preview.map((value, i) => <span key={i}>{value ? NAMES[value - 1] : ''}</span>)}</div><span className="games-preview-bottom">SIX FRIENDS · ONE SOLUTION</span></a>
+      </div>
+      <GlowRule className="section-boundary" />
+    </section>
+  );
+}
+
+function PortfolioApp() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [active, setActive] = useState('about');
 
@@ -187,9 +204,13 @@ export default function App() {
     <>
       <a className="skip-link" href="#about">Skip to content</a>
       <Header active={active} menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
-      <main><About /><Skills /><Projects /><Contact /></main>
+      <main><About /><Skills /><Projects /><Games /><Contact /></main>
       <footer className="footer"><a href="#about">MP<span>.</span></a><p>© {new Date().getFullYear()} Manohar Pesaravai</p><a href="#about">Back to top ↑</a></footer>
     </>
   );
+}
+
+export default function App() {
+  return window.location.pathname.replace(/\/$/, '') === '/games/sudoku' ? <SudokuGame /> : <PortfolioApp />;
 }
 
