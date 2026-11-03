@@ -1,216 +1,261 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import GeofenceDemo from './GeofenceDemo.jsx';
 import SudokuGame from './SudokuGame.jsx';
-import { makePuzzle, NAMES } from './sudoku.js';
+
+const EMAIL = 'pesaravaimanohar.dev@gmail.com';
+const GITHUB = 'https://github.com/pesaravaimanohar';
 
 const links = [
-  { label: 'About', href: '#about' },
-  { label: 'Skills', href: '#skills' },
-  { label: 'Projects', href: '#projects' },
-  { label: 'My Games', href: '#games' },
+  { label: 'AttendX', href: '#attendx' },
+  { label: 'Projects', href: '#work' },
+  { label: 'Skills', href: '#skills', optional: true },
+  { label: 'About', href: '#about', optional: true },
   { label: 'Contact', href: '#contact' },
 ];
 
-const skills = [
-  { number: '01', title: 'Frontend development', detail: 'React, HTML, CSS, and JavaScript for fast, usable interfaces.' },
-  { number: '02', title: 'Responsive design', detail: 'Layouts that stay clear, balanced, and intuitive on every screen.' },
-  { number: '03', title: 'Interaction detail', detail: 'Purposeful motion and visual feedback that support the content.' },
-  { number: '04', title: 'Website delivery', detail: 'From a clear brief to a polished, ready-to-share website.' },
+const attendxFacts = [
+  { value: '6', detail: 'role dashboards, from student to principal' },
+  { value: '17', detail: 'REST controllers in Spring Boot' },
+  { value: '50 m', detail: 'default geofence radius per session' },
 ];
 
-function GlowRule({ className = '' }) {
-  return <div className={`glow-rule ${className}`} aria-hidden="true"><span /></div>;
+const attendxBuilt = [
+  { title: 'Secure access:', detail: 'stateless JWT sign-in, with a central permission matrix for each role.' },
+  { title: 'Sessions that match timetables:', detail: 'faculty run classes up to 3 hours long, and analytics weight them correctly.' },
+  { title: 'Bulk data:', detail: 'Excel upload for students, faculty and past attendance, using Apache POI.' },
+  { title: 'Early warnings:', detail: 'low-attendance alerts and at-risk views for class coordinators.' },
+];
+
+const attendxStack = ['Java 17', 'Spring Boot 3', 'Spring Security', 'JPA', 'MySQL', 'React 19', 'Vite', 'MUI', 'Recharts'];
+
+const projects = [
+  {
+    title: 'FinanceFlow',
+    tag: 'Live · sign up to try · AI-assisted build',
+    image: '/projects/financeflow.jpg',
+    width: 800,
+    height: 500,
+    alt: 'FinanceFlow sign-in screen with its list of features',
+    url: 'https://finance-flow-sand-eight.vercel.app',
+    urlLabel: 'Live app',
+    code: `${GITHUB}/FinanceFlow`,
+    detail: 'A personal finance tracker with pages for transactions, budgets, EMIs and analytics. Each user’s data is protected by Postgres row-level security policies, and people can sign in with Google.',
+    stack: ['React 19', 'Supabase', 'PostgreSQL', 'Tailwind', 'Recharts'],
+  },
+  {
+    title: 'Names Sudoku',
+    tag: 'Live · no sign-in · made for friends',
+    image: '/projects/sudoku.jpg',
+    width: 799,
+    height: 456,
+    alt: 'Names Sudoku game board with friends’ names in place of numbers',
+    url: '/games/sudoku',
+    urlLabel: 'Play it',
+    code: `${GITHUB}/pesaravai-manohar-portfolio`,
+    detail: 'A 6×6 Sudoku that uses six friends’ names as its symbols. Every board has one solution. Each link carries a seed, so a shared link opens the same puzzle, served by a small API or generated in the browser if the API is down.',
+    stack: ['React', 'Vercel Functions', 'Seeded generation'],
+  },
+];
+
+const smallerBuilds = [
+  { title: 'College ID Card Generator', detail: 'Fill in one student’s card with a live preview, or generate a batch from an Excel sheet with photos and signatures.', url: 'https://id-card-generation-seven.vercel.app', label: 'Live tool' },
+  { title: 'Todo app', detail: 'Full-stack CRUD with Spring Boot, JPA and PostgreSQL, on Java 21, with a Dockerfile.', url: `${GITHUB}/todo_app`, label: 'Code' },
+  { title: 'Banking console app', detail: 'Core Java practice in encapsulation, validation and exception handling.', url: `${GITHUB}/Banking_Application`, label: 'Code' },
+  { title: 'DSA practice', detail: 'Java solutions to array and string problems.', url: `${GITHUB}/DSA`, label: 'Code' },
+];
+
+const skills = [
+  { area: 'Backend', tools: 'Java, Spring Boot, Spring Security, JWT, Spring Data JPA', usedIn: 'AttendX, Todo app' },
+  { area: 'Frontend', tools: 'React, JavaScript, HTML, CSS, Vite, MUI, Tailwind', usedIn: 'AttendX, FinanceFlow, Names Sudoku' },
+  { area: 'Databases', tools: 'MySQL, PostgreSQL, Supabase, row-level security', usedIn: 'AttendX, FinanceFlow, Todo app' },
+  { area: 'Delivery', tools: 'Git, GitHub, Vercel, Docker, serverless functions', usedIn: 'All live projects, Todo app' },
+  { area: 'Foundations', tools: 'OOP, data structures, REST API design', usedIn: 'Banking app, DSA practice, AttendX' },
+];
+
+function Stack({ items }) {
+  return <ul className="stack" aria-label="Tech stack">{items.map(item => <li key={item}>{item}</li>)}</ul>;
 }
 
-function SectionTop({ number, label, note }) {
+function Header() {
   return (
-    <div className="section-top">
-      <span className="section-kicker">{number} / {label}</span>
-      <span className="section-note">{note}</span>
-      <GlowRule className="section-top-rule" />
+    <header>
+      <div className="wrap bar">
+        <a className="logo" href="#top" aria-label="Manohar Pesaravai, back to top">MP<span>.</span></a>
+        <nav aria-label="Main">
+          {links.map(link => <a key={link.href} className={link.optional ? 'opt' : undefined} href={link.href}>{link.label}</a>)}
+        </nav>
+      </div>
+    </header>
+  );
+}
+
+function Hero() {
+  return (
+    <div className="hero">
+      <div className="wrap">
+        <div className="hero-grid">
+          <div>
+            <p className="status"><i aria-hidden="true" />Open to developer roles</p>
+            <h1>Manohar Pesaravai<span>.</span></h1>
+            <p className="role">Full-stack developer. Java, Spring Boot and React.</p>
+            <p className="intro">I build complete web apps, from the database to the interface. My largest is AttendX, a QR and GPS attendance system with dashboards for six campus roles.</p>
+            <div className="actions">
+              <a className="btn primary" href="#attendx">See how AttendX works</a>
+              <a className="btn" href={GITHUB}>GitHub</a>
+              {/* Add when ready:
+              <a className="btn" href="/resume.pdf">Resume (PDF)</a>
+              <a className="btn" href="https://www.linkedin.com/in/YOUR-HANDLE">LinkedIn</a>
+              */}
+            </div>
+          </div>
+          <div className="photo-box">
+            <img className="photo" src="/manohar-pesaravai.jpg" width="900" height="1125" alt="Manohar Pesaravai in a dark suit jacket and white shirt, smiling" />
+          </div>
+        </div>
+        <dl className="glance">
+          <div><dt>Looking for</dt><dd>Full-stack or web developer roles, and freelance sites</dd></div>
+          <div><dt>Main stack</dt><dd>Java, Spring Boot, React, MySQL</dd></div>
+          <div><dt>Based in</dt><dd>Bengaluru, Karnataka, India</dd></div>
+          <div><dt>Email</dt><dd><a href={`mailto:${EMAIL}`}>{EMAIL}</a></dd></div>
+        </dl>
+      </div>
     </div>
   );
 }
 
-function Header({ active, menuOpen, setMenuOpen }) {
-  const closeMenu = () => setMenuOpen(false);
+function AttendX() {
   return (
-    <>
-      <header className="header">
-        <a className="brand" href="#about" aria-label="Manohar Pesaravai, home" onClick={closeMenu}>
-          <span className="brand-symbol">MP<span>.</span></span>
-          <span className="brand-name">Manohar Pesaravai</span>
-        </a>
-        <nav className="nav" aria-label="Main navigation">
-          {links.map(link => <a key={link.href} className={active === link.href.slice(1) ? 'active' : ''} href={link.href}>{link.label}</a>)}
-        </nav>
-        <a className="header-contact" href="mailto:pesaravaimanohar.dev@gmail.com">Let’s talk <span aria-hidden="true">↗</span></a>
-        <button className="menu-toggle" type="button" aria-label={menuOpen ? 'Close menu' : 'Open menu'} aria-controls="mobile-menu" aria-expanded={menuOpen} onClick={() => setMenuOpen(!menuOpen)}>
-          <span /><span />
-        </button>
-      </header>
-      <nav className={`mobile-menu ${menuOpen ? 'open' : ''}`} id="mobile-menu" aria-label="Mobile navigation" inert={!menuOpen}>
-        {links.map(link => <a key={link.href} href={link.href} onClick={closeMenu}>{link.label}<span aria-hidden="true">↗</span></a>)}
-        <a className="mobile-email" href="mailto:pesaravaimanohar.dev@gmail.com" onClick={closeMenu}>Let’s talk <span aria-hidden="true">↗</span></a>
-      </nav>
-    </>
+    <section id="attendx">
+      <div className="wrap">
+        <p className="label">Featured project · Final-year build</p>
+        <h2>AttendX: attendance that checks you’re in the room.</h2>
+        <div className="split">
+          <div>
+            <p className="lede">Roll calls waste class time and a shared QR photo is easy to abuse. In AttendX, a student scans a code the faculty member can refresh, and the server checks that the student is physically in the room before the mark counts.</p>
+            <dl className="facts">
+              {attendxFacts.map(fact => <div key={fact.value}><dt>{fact.value}</dt><dd>{fact.detail}</dd></div>)}
+            </dl>
+            <ul className="built">
+              {attendxBuilt.map(item => <li key={item.title}><strong>{item.title}</strong> {item.detail}</li>)}
+            </ul>
+            <Stack items={attendxStack} />
+            <div className="links">
+              <a href="https://smart-campus-attendance-management.vercel.app">Open the live app</a>
+              <a href={`${GITHUB}/Smart_Campus_Attendance_Management`}>Read the code</a>
+            </div>
+            <p className="tiny login-note">The live app needs a sign-in. <a href="#contact">Email me</a> for a demo login or a walkthrough.</p>
+          </div>
+          <GeofenceDemo />
+        </div>
+      </div>
+    </section>
   );
 }
 
-function About() {
+function Work() {
   return (
-    <section className="about section" id="about" aria-labelledby="about-title">
-      <div className="about-glow" aria-hidden="true" />
-      <div className="about-grid" aria-hidden="true" />
-      <div className="about-main">
-        <div className="about-content">
-          <p className="eyebrow"><span className="eyebrow-line" /> Web developer · Bengaluru</p>
-          <h1 id="about-title">Manohar<br /><em>Pesaravai<span>.</span></em></h1>
-          <div className="about-bottom">
-            <p>I build clean, responsive websites with a strong eye for detail. Open to web development roles and freelance projects.</p>
-            <a className="primary-link" href="#projects">Explore projects <span aria-hidden="true">↗</span></a>
-          </div>
+    <section id="work" className="rule">
+      <div className="wrap">
+        <h2>More things I’ve built</h2>
+        <div className="work">
+          {projects.map(project => (
+            <article key={project.title}>
+              <a href={project.url}><img className="shot" src={project.image} width={project.width} height={project.height} loading="lazy" alt={project.alt} /></a>
+              <p className="tag">{project.tag}</p>
+              <h3>{project.title}</h3>
+              <p>{project.detail}</p>
+              <Stack items={project.stack} />
+              <div className="links"><a href={project.url}>{project.urlLabel}</a><a href={project.code}>Code</a></div>
+            </article>
+          ))}
         </div>
-        <figure className="portrait">
-          <div className="portrait-frame">
-            <img src="/manohar-pesaravai.png" alt="Manohar Pesaravai wearing a dark suit" width="1122" height="1402" fetchPriority="high" />
-          </div>
-          <figcaption><span>Manohar Pesaravai</span><span>Web developer · Bengaluru</span></figcaption>
-        </figure>
+        <div className="more">
+          <h3>Smaller builds</h3>
+          <ul className="rows">
+            {smallerBuilds.map(build => <li key={build.title}><b>{build.title}</b><p>{build.detail}</p><a href={build.url}>{build.label}</a></li>)}
+          </ul>
+        </div>
       </div>
-      <div className="about-aside" aria-hidden="true"><span>Design</span><span>Development</span><span>Direction</span></div>
-      <div className="about-detail" aria-hidden="true"><span>Available for new opportunities</span><span className="detail-line" /><span>{new Date().getFullYear()}</span></div>
-      <GlowRule className="section-boundary" />
     </section>
   );
 }
 
 function Skills() {
   return (
-    <section className="skills section" id="skills" aria-labelledby="skills-title">
-      <SectionTop number="01" label="Skills" note="The foundation of my work" />
-      <div className="skills-layout">
-        <div className="section-intro reveal">
-          <h2 id="skills-title">Built with clarity.<br /><span>Made to work.</span></h2>
-          <p>My focus is on accessible, responsive web experiences that look sharp and feel effortless to use.</p>
-        </div>
-        <div className="skills-list">
-          {skills.map(skill => (
-            <div className="skill-item reveal" key={skill.number}>
-              <span className="skill-no">{skill.number}</span>
-              <div><h3>{skill.title}</h3><p>{skill.detail}</p></div>
-              <span className="skill-icon" aria-hidden="true">↗</span>
-            </div>
-          ))}
+    <section id="skills" className="rule">
+      <div className="wrap">
+        <h2>Skills, and where to check them</h2>
+        <div className="table">
+          <table>
+            <thead><tr><th scope="col">Area</th><th scope="col">Tools</th><th scope="col">Used in</th></tr></thead>
+            <tbody>
+              {skills.map(skill => <tr key={skill.area}><td>{skill.area}</td><td>{skill.tools}</td><td>{skill.usedIn}</td></tr>)}
+            </tbody>
+          </table>
         </div>
       </div>
-      <GlowRule className="section-boundary" />
     </section>
   );
 }
 
-function Projects() {
+function About() {
   return (
-    <section className="projects section" id="projects" aria-labelledby="projects-title">
-      <SectionTop number="02" label="Projects" note="Selected work" />
-      <div className="projects-heading reveal">
-        <h2 id="projects-title">Work that speaks<br /><span>for itself.</span></h2>
-        <p>I’m at the beginning of my professional journey. This portfolio is my first showcased build, with more projects to follow.</p>
-      </div>
-      <article className="project reveal">
-        <a className="project-preview" href="#about" aria-label="View the Manohar Pesaravai portfolio website">
-          <div className="preview-top"><span>MP.</span><span>Web Developer</span></div>
-          <div className="preview-center"><span>Manohar</span><strong>Pesaravai.</strong></div>
-          <div className="preview-bottom"><span>01 / About</span><span>02 / Skills</span><span>03 / Projects</span></div>
-          <span className="preview-corner" aria-hidden="true">↗</span>
-        </a>
-        <div className="project-info">
-          <div><span className="project-category">Personal project · {new Date().getFullYear()}</span><h3>Personal portfolio</h3><p>This website: a responsive React portfolio with custom motion, accessible navigation, and a direct contact path.</p></div>
-          <a href="#about" aria-label="View personal portfolio">View project <span aria-hidden="true">↗</span></a>
+    <section id="about" className="rule">
+      <div className="wrap about">
+        <h2>About me</h2>
+        <div>
+          <p className="lede">I’m an early-career developer in Bengaluru, and I’ve been putting Java code on GitHub since 2023.</p>
+          <p>I like building for a problem I can see in front of me. That has meant attendance for JNTUA, a tracker for personal finances, an ID card tool for a college, and a puzzle for six friends.</p>
+          <p>I’m looking for a team where I can work across the backend and the interface, and learn from people who ship software every day.</p>
         </div>
-      </article>
-      <p className="more-projects">Additional project case studies will be added as they’re completed.</p>
-      <GlowRule className="section-boundary" />
+      </div>
     </section>
   );
 }
 
 function Contact() {
-  return (
-    <section className="contact section" id="contact" aria-labelledby="contact-title">
-      <SectionTop number="04" label="Contact" note="The next step starts here" />
-      <div className="contact-layout reveal">
-        <div>
-          <h2 id="contact-title">Let’s make<br /><span>something good.</span></h2>
-          <p>Hiring for a web development role or planning a website? I’d be glad to hear about it.</p>
-          <a className="email-button" href="mailto:pesaravaimanohar.dev@gmail.com?subject=Hello%20Manohar%20Pesaravai">Email me <span aria-hidden="true">↗</span></a>
-        </div>
-        <div className="contact-details">
-          <div><span>Email</span><a href="mailto:pesaravaimanohar.dev@gmail.com">pesaravaimanohar.dev@gmail.com</a></div>
-          <div><span>Location</span><strong>Bengaluru, Karnataka, India</strong></div>
-          <div><span>Open to</span><strong>Web development roles<br />Freelance website projects</strong></div>
-        </div>
-      </div>
-      <GlowRule className="section-boundary" />
-    </section>
-  );
-}
+  const [copyLabel, setCopyLabel] = useState('Copy email');
 
-function Games() {
-  const preview = makePuzzle('easy', 'portfolio-preview').puzzle;
+  const copyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(EMAIL);
+      setCopyLabel('Copied');
+      setTimeout(() => setCopyLabel('Copy email'), 1800);
+    } catch {
+      setCopyLabel('Copy failed, select the address');
+    }
+  };
+
   return (
-    <section className="games section" id="games" aria-labelledby="games-title">
-      <SectionTop number="03" label="My Games" note="Little things, made to play" />
-      <div className="games-layout reveal">
-        <div className="games-copy"><span className="games-tag">01 / THE FRIENDS EDITION</span><h2 id="games-title">A puzzle with<br /><span>familiar names.</span></h2><p>Meet Names Sudoku: a 6×6 puzzle featuring Vams, Yams, Vji, Obu, Sree and Teju. Choose a level, solve it, and share the same board with a friend.</p><a className="games-link" href="/games/sudoku">Play Names Sudoku <span aria-hidden="true">↗</span></a></div>
-        <a className="games-preview" href="/games/sudoku" aria-label="Play Names Sudoku"><span className="games-preview-top">NAMES SUDOKU <span>↗</span></span><div className="games-mini-grid" aria-hidden="true">{preview.map((value, i) => <span key={i}>{value ? NAMES[value - 1] : ''}</span>)}</div><span className="games-preview-bottom">SIX FRIENDS · ONE SOLUTION</span></a>
+    <section id="contact" className="contact">
+      <div className="wrap">
+        <h2>Hiring, or need a website built?</h2>
+        <p>Email me about the role or project. I can also walk you through any of this code.</p>
+        <div className="mail">
+          <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
+          <button className="btn" type="button" onClick={copyEmail}>{copyLabel}</button>
+        </div>
+        <dl>
+          <div><dt>Code</dt><dd><a href={GITHUB}>github.com/pesaravaimanohar</a></dd></div>
+          <div><dt>Location</dt><dd>Bengaluru, Karnataka, India</dd></div>
+          <div><dt>Open to</dt><dd>Developer roles and freelance websites</dd></div>
+        </dl>
       </div>
-      <GlowRule className="section-boundary" />
     </section>
   );
 }
 
 function PortfolioApp() {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [active, setActive] = useState('about');
-
-  useEffect(() => {
-    const motionAllowed = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (!('IntersectionObserver' in window)) return;
-
-    const revealObserver = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (!entry.isIntersecting) return;
-        entry.target.classList.add('visible');
-        revealObserver.unobserve(entry.target);
-      });
-    }, { threshold: 0.1 });
-    if (motionAllowed) document.querySelectorAll('.reveal').forEach(item => revealObserver.observe(item));
-    else document.querySelectorAll('.reveal').forEach(item => item.classList.add('visible'));
-
-    const sectionObserver = new IntersectionObserver(entries => {
-      entries.forEach(entry => { if (entry.isIntersecting) setActive(entry.target.id); });
-    }, { rootMargin: '-35% 0px -55% 0px' });
-    document.querySelectorAll('main > section[id]').forEach(section => sectionObserver.observe(section));
-    return () => { revealObserver.disconnect(); sectionObserver.disconnect(); };
-  }, []);
-
-  useEffect(() => {
-    const onEscape = event => { if (event.key === 'Escape') setMenuOpen(false); };
-    window.addEventListener('keydown', onEscape);
-    return () => window.removeEventListener('keydown', onEscape);
-  }, []);
-
   return (
-    <>
-      <a className="skip-link" href="#about">Skip to content</a>
-      <Header active={active} menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
-      <main><About /><Skills /><Projects /><Games /><Contact /></main>
-      <footer className="footer"><a href="#about">MP<span>.</span></a><p>© {new Date().getFullYear()} Manohar Pesaravai</p><a href="#about">Back to top ↑</a></footer>
-    </>
+    <div className="site">
+      <a className="skip" href="#attendx">Skip to projects</a>
+      <Header />
+      <main id="top"><Hero /><AttendX /><Work /><Skills /><About /><Contact /></main>
+      <footer><div className="wrap"><span>Manohar Pesaravai</span><a href="#top">Back to top</a></div></footer>
+    </div>
   );
 }
 
 export default function App() {
   return window.location.pathname.replace(/\/$/, '') === '/games/sudoku' ? <SudokuGame /> : <PortfolioApp />;
 }
-

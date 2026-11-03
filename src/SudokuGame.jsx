@@ -145,7 +145,7 @@ export default function SudokuGame() {
       <a className="sudoku-skip" href="#sudoku-board">Skip to puzzle</a>
       <header className="sudoku-header">
         <a className="sudoku-brand" href="/">MP<span>.</span> <small>/ MY GAMES</small></a>
-        <a className="sudoku-home" href="/#games">← Back to portfolio</a>
+        <a className="sudoku-home" href="/#work">← Back to portfolio</a>
       </header>
       <main className="sudoku-main">
         <div className="sudoku-intro">
